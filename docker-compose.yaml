@@ -1,0 +1,11 @@
+version: "3.9"
+
+services:
+  app:
+    image: devops-app:v1
+    container_name: devops-app
+    ports:
+      - "5000:5000"
+    environment:
+      APP_VERSION: "1.0.0"
+
