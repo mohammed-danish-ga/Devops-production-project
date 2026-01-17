@@ -8,4 +8,29 @@ services:
       - "5000:5000"
     environment:
       APP_VERSION: "1.0.0"
+      DB_HOST: postgres
+      DB_NAME: devopsdb
+      DB_USER: devops
+      DB_PASSWORD: devopspass
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+    depends_on:
+      - postgres
+      - redis
+
+  postgres:
+    image: postgres:15
+    container_name: postgres-db
+    environment:
+      POSTGRES_DB: devopsdb
+      POSTGRES_USER: devops
+      POSTGRES_PASSWORD: devopspass
+    ports:
+      - "5432:5432"
+
+  redis:
+    image: redis:7
+    container_name: redis-cache
+    ports:
+      - "6379:6379"
 
