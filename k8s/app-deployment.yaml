@@ -18,6 +18,35 @@ spec:
           ports:
             - containerPort: 5000
           env:
+            # App config from ConfigMap
             - name: APP_VERSION
-              value: "1.0.0"
+              valueFrom:
+                configMapKeyRef:
+                  name: app-config
+                  key: APP_VERSION
+
+            # Database config from Secret
+            - name: DB_HOST
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: DB_HOST
+
+            - name: DB_NAME
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: DB_NAME
+
+            - name: DB_USER
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: DB_USER
+
+            - name: DB_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: db-secret
+                  key: DB_PASSWORD
 
