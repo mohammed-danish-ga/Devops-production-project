@@ -18,5 +18,5 @@ jobs:
 
       - name: Build Docker image
         run: |
-          docker build -t devops-app:ci .
+          docker build -t devops-app:ci -f docker/Dockerfile .
 
