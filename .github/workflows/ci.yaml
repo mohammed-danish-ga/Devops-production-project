@@ -2,7 +2,7 @@ name: CI Pipeline
 
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
     paths-ignore:
       - "notes/**"
       - "README.md"
@@ -26,11 +26,14 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
-          username: ${{ github.actor }}
+          username: mohammed-danish-ga
           password: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build and push Docker image
         run: |
-          docker build -t ghcr.io/${{ github.repository_owner }}/devops-app:latest .
-          docker push ghcr.io/${{ github.repository_owner }}/devops-app:latest
+          docker build -t ghcr.io/mohammed-danish-ga/devops-app:latest -f docker/Dockerfile .
+          docker push ghcr.io/mohammed-danish-ga/devops-app:latest
+
+
+
 
