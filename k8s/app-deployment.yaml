@@ -14,7 +14,8 @@ spec:
     spec:
       containers:
         - name: app
-          image: devops-app:v1
+          image: ghcr.io/mohammed-danish-ga/devops-app:latest
+          imagePullPolicy: Always
           ports:
             - containerPort: 5000
           env:

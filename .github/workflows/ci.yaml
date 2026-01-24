@@ -34,6 +34,14 @@ jobs:
           docker build -t ghcr.io/mohammed-danish-ga/devops-app:latest -f docker/Dockerfile .
           docker push ghcr.io/mohammed-danish-ga/devops-app:latest
 
+      - name: Set up kubeconfig
+        run: |
+          mkdir -p ~/.kube
+          echo "${{ secrets.KUBECONFIG_DATA }}" > ~/.kube/config
+
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl apply -f k8s/
 
 
 
