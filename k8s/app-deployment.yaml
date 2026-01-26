@@ -3,10 +3,18 @@ kind: Deployment
 metadata:
   name: devops-app
 spec:
-  replicas: 1
+  replicas: 2
+
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 0
+      maxSurge: 2
+
   selector:
     matchLabels:
       app: devops-app
+
   template:
     metadata:
       labels:
@@ -50,4 +58,5 @@ spec:
                 secretKeyRef:
                   name: db-secret
                   key: DB_PASSWORD
+
 
