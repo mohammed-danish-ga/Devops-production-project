@@ -3,13 +3,13 @@ kind: Deployment
 metadata:
   name: devops-app
 spec:
-  replicas: 2
+  replicas: 1
 
   strategy:
     type: RollingUpdate
     rollingUpdate:
       maxUnavailable: 0
-      maxSurge: 2
+      maxSurge: 1
 
   selector:
     matchLabels:
@@ -22,10 +22,32 @@ spec:
     spec:
       containers:
         - name: app
-          image: ghcr.io/mohammed-danish-ga/devops-app:latest
+          image: ghcr.io/mohammed-danish-ga/devops-app:v1
           imagePullPolicy: Always
+
           ports:
             - containerPort: 5000
+
+          # ✅ Readiness: controls when pod receives traffic
+          readinessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 5
+            periodSeconds: 5
+            timeoutSeconds: 2
+            failureThreshold: 3
+
+          # ✅ Liveness: restarts container if app is stuck
+          livenessProbe:
+            httpGet:
+              path: /health
+              port: 5000
+            initialDelaySeconds: 10
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 3
+
           env:
             # App config from ConfigMap
             - name: APP_VERSION
@@ -58,5 +80,4 @@ spec:
                 secretKeyRef:
                   name: db-secret
                   key: DB_PASSWORD
-
 
