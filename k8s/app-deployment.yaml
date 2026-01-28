@@ -25,6 +25,14 @@ spec:
           image: ghcr.io/mohammed-danish-ga/devops-app:v1
           imagePullPolicy: Always
 
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
+
           ports:
             - containerPort: 5000
 
